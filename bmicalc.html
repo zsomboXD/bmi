@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <title>BMI CALCULATOR</title>
+    <style>
+      html,
+      body {
+        background-color: #74afdf;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        text-align: center;
+        max-width: 350px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+      }
+
+      .row {
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="text-center">BMI Calculator</h1>
+      <div class="row">
+        <div class="col">
+          <h4>Weight</h4>
+          <input
+            type="number"
+            name=""
+            id="weight"
+            class="form-control rounded"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h4>Height</h4>
+          <input
+            type="number"
+            name=""
+            id="height"
+            class="form-control rounded"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <input
+            type="button"
+            value="Result"
+            class="btn btn-success btn-round btn-block"
+            onclick="calculate()"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <input
+            type="button"
+            value="Reset"
+            class="btn btn-round btn-block btn-danger"
+            onclick="reset()"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p id="result"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const intervals = [
+        { min: 0, max: 18.5, categ: "underweight", emoji: "💀" },
+        { min: 18.6, max: 24.9, categ: "normal", emoji: "👌" },
+        { min: 25, max: 29.9, categ: "overweight", emoji: "😂" },
+        { min: 30, max: 34.9, categ: "obese", emoji: "🤣" },
+        { min: 35, max: 999, categ: "morbidly obese", emoji: "🤦‍♂️" },
+      ];
+
+      function calculate() {
+        try{
+        let weight = document.getElementById("weight").value;
+        let height = document.getElementById("height").value;
+        let bmi = weight / (height / 100) ** 2;
+        let interval = intervals.find(
+          (obj) => obj.min <= bmi && obj.max >= bmi
+        );
+        document.getElementById("result").innerHTML = `BMI: ${bmi.toFixed(
+          2
+        )} <br> ${interval.categ} ${interval.emoji}`;
+      } catch (error) {
+        alert("Hiba");
+      }
+    }
+
+      function reset() {
+        document.getElementById("height").value = "";
+        document.getElementById("weight").value = "";
+        document.getElementById("result").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
